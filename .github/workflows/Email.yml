@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: ubunto-latest
     strategy:
       matrix:
         r-version: ['3.6.3', '4.1.1']
