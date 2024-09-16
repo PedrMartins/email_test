@@ -1,3 +1,4 @@
+install.packages("blastula")
 library(blastula)
 library(rmarkdown)
 
