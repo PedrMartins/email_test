@@ -32,7 +32,7 @@ jobs:
           service_account: '${{ secrets.EMAIL_SAG }}'
       - name: Install dependencies
         run: |
-          install.packages("blastula", type = "win.binary")
+          install.packages("blastula")
           install.packages("rmarkdown")
         shell: Rscript {0}
       - name: Script
