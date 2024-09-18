@@ -9,6 +9,7 @@
 name: Email 
 
 on:
+  workflow_dispatch:
   schedule:
    - cron: '0 9 * * 1-5'
 
@@ -18,9 +19,6 @@ permissions:
 jobs:
   render:
     runs-on: ubunto-latest
-    env:
-          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
-          username: github-actions
     steps:  
       - uses: actions/checkout@v2
       - name: Set up R
@@ -29,8 +27,8 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v1
         with:
-          workload_identity_provider: "projects/423179119965/locations/global/workloadIdentityPools/github-email/subject/SUBJECT_ATTRIBUTE_VALUE"
-          service_account: "iotree-email-test@just-genius-337505.iam.gserviceaccount.com"
+          workload_identity_provider: '${{ secrets.PROVIDER_GCLOUD }}'
+          service_account: '${{ secrets.EMAIL_SAG }}'
       - name: Install dependencies
         run: |
           install.packages("blastula", type = "win.binary")
