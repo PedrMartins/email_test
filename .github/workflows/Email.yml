@@ -14,7 +14,7 @@ on:
    - cron: '0 9 * * 1-5'
 
 jobs:
-  render:
+  run-r-script:
     runs-on: ubunto-latest
     steps:  
       - uses: actions/checkout@v2
