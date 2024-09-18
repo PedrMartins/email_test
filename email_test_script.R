@@ -16,5 +16,5 @@ if (!colSums(ultima_medicao) == 0) {
           subject = paste0("Erro sensores ", Sys.Date()),
           credentials = creds_file("ggnot_throwaway_creds"))
 } else {
-  cat ("nenhum problema a relatar")
+  cat ("nenhum problema à relatar")
   }
