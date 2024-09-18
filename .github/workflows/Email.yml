@@ -9,30 +9,41 @@
 name: Email 
 
 on:
-  #schedule:
-  # - cron: '0 9 * * 1-5'
+  schedule:
+   - cron: '0 9 * * 1-5'
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  render:
     runs-on: ubunto-latest
-    strategy:
-      matrix:
-        r-version: ['3.6.3', '4.1.1']
-
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up R ${{ matrix.r-version }}
-        uses: r-lib/actions/setup-r@f57f1301a053485946083d7a45022b278929a78a
+    env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
+    steps:  
+      - uses: actions/checkout@v2
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+      - name: Authenticate to Google Cloud
+        id: auth
+        uses: google-github-actions/auth@v1
         with:
-          r-version: ${{ matrix.r-version }}
+          workload_identity_provider: "projects/423179119965/locations/global/workloadIdentityPools/github-email/subject/SUBJECT_ATTRIBUTE_VALUE"
+          service_account: "iotree-email-test@just-genius-337505.iam.gserviceaccount.com"
       - name: Install dependencies
         run: |
-          install.packages(c("remotes", "rcmdcheck"))
-          remotes::install_deps(dependencies = TRUE)
+          install.packages("blastula", type = "win.binary")
+          install.packages("rmarkdown")
         shell: Rscript {0}
-      - name: Check
-        run: rcmdcheck::rcmdcheck(args = "--no-manual", error_on = "error")
-        shell: Rscript {0}
+      - name: Script
+        run: Rscript email_test_script.R
+      - name: Commit files
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email "actions@github.com"
+          git add output/*
+          git commit -am "commit on $(date)"
+          git push origin main
+        
+    
