@@ -15,7 +15,7 @@ on:
 
 jobs:
   run-r-script:
-    runs-on: ubunto-latest
+    runs-on: ubuntu-latest
     steps:  
       - uses: actions/checkout@v2
       - name: Set up R
