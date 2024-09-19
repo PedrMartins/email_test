@@ -37,9 +37,11 @@ jobs:
         with: 
           use-public-rspm: true
           
-      - name: Set up pandoc
-        uses: r-lib/actions/setup-pandoc@master
-        
+      - name: set pandoc
+        uses: docker://pandoc/core:2.9
+        with:
+          args: "--help" # gets appended to pandoc command    
+              
       - name: Install R Dependencies
         run: |      
           Rscript -e "install.packages('rmarkdown')"
