@@ -21,20 +21,29 @@ jobs:
   run-r-script:
     runs-on: ubuntu-latest
     steps:  
-      - uses: actions/checkout@v2
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
+      
       - name: Authenticate to Google Cloud
         id: auth
         uses: google-github-actions/auth@v1
         with:
           workload_identity_provider: '${{ secrets.PROVIDER_GCLOUD }}'
           service_account: '${{ secrets.EMAIL_SAG }}'
+      
+      - uses: actions/checkout@v2
+      
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with: 
+          use-public-rspm: true
+     
       - name: Install dependencies
         run: |
-          Rscript -e "install.packages('remotes')"
-          Rscript -e "remotes::install_cran('blastula')"
+          Rscript -e "install.packages('blastula')"
           Rscript -e "install.packages('rmarkdown')"
+          Rscript -e "install.packages('tidyr')"
+          Rscript -e "install.packages('lubridate')"
+
+
         shell: Rscript {0}
       - name: Script
         run: Rscript email_test_script.R
