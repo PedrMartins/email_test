@@ -43,9 +43,7 @@ jobs:
           args: "--help" # gets appended to pandoc command    
               
       - name: Install R Dependencies
-        run: |      
-          Rscript -e "a <- Sys.getenv('RSTUDIO_PANDOC')"
-          Rscript -e "Sys.setenv(RSTUDIO_PANDOC=a)"
+        run: | 
           Rscript -e "install.packages('rmarkdown')"
           Rscript -e "install.packages('blastula')"
           Rscript -e "install.packages('tidyr')"
