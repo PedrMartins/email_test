@@ -38,12 +38,11 @@ jobs:
      
       - name: Install dependencies
         run: |
-          Rscript -e "install.packages('blastula')"
-          Rscript -e "install.packages('rmarkdown')"
-          Rscript -e "install.packages('tidyr')"
-          Rscript -e "install.packages('lubridate')"
-
-
+          Rscript -e 'install.packages("blastula")'
+          Rscript -e 'install.packages("rmarkdown")'
+          Rscript -e 'install.packages("tidyr")'
+          Rscript -e 'install.packages("lubridate")'
         shell: Rscript {0}
+    
       - name: Script
         run: Rscript email_test_script.R
