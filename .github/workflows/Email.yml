@@ -37,13 +37,15 @@ jobs:
         with: 
           use-public-rspm: true
           
-      - name: set pandoc
+      - name: Set Up Pandoc
         uses: docker://pandoc/core:2.9
         with:
           args: "--help" # gets appended to pandoc command    
               
       - name: Install R Dependencies
         run: |      
+          Rscript -e "a <- Sys.getenv('RSTUDIO_PANDOC')"
+          Rscript -e "Sys.setenv(RSTUDIO_PANDOC=a)"
           Rscript -e "install.packages('rmarkdown')"
           Rscript -e "install.packages('blastula')"
           Rscript -e "install.packages('tidyr')"
