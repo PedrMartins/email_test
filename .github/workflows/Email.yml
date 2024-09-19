@@ -37,10 +37,10 @@ jobs:
         with: 
           use-public-rspm: true
           
-      - name: Set Up Pandoc
-        uses: docker://pandoc/core:2.9
-        with:
-          args: "--help" # gets appended to pandoc command    
+      - name: Install Pandoc
+        run: |
+          sudo apt-get install pandoc -y
+          echo "RSTUDIO_PANDOC=$(which pandoc)" >> $GITHUB_ENV 
               
       - name: Install R Dependencies
         run: | 
