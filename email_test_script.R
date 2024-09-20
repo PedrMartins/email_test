@@ -1,11 +1,10 @@
-install.packages("blastula")
 library(blastula)
 library(rmarkdown)
 
 source("import_and_processing_data.R")
 
-
-
+# Fetch the email credentials path from environment variable
+email_creds <- Sys.getenv("EMAIL_CREDENTIALS_PATH")
 
 if (!colSums(ultima_medicao) == 0) {
 
@@ -14,7 +13,7 @@ if (!colSums(ultima_medicao) == 0) {
           from = "iotree-email-test@just-genius-337505.iam.gserviceaccount.com",
           to = "pedro.rufino.martins@gmail.com",
           subject = paste0("Erro sensores ", Sys.Date()),
-          credentials = creds_file("ggnot_throwaway_creds"))
+          credentials = creds_file(email_creds))
 } else {
   cat ("nenhum problema à relatar")
   }
