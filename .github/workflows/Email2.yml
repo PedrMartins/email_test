@@ -26,6 +26,7 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v1
         with:
+          create_credentials_file: 'true'
           workload_identity_provider: '${{ secrets.PROVIDER_GCLOUD }}'
           service_account: '${{ secrets.EMAIL_SAG }}'
     
@@ -39,7 +40,7 @@ jobs:
          
       - name: Run R Script
         env:
-          EMAIL_CREDENTIALS_PATH: ${{ secrets.EMAIL_CREDENTIALS_PATH }} 
+          EMAIL_CREDENTIALS_PATH: 'credentials_file_path' 
         run: |
           Rscript -e 'print (Sys.getenv("EMAIL_CREDENTIALS_PATH"))'
         
