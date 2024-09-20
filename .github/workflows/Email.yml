@@ -49,10 +49,8 @@ jobs:
           Rscript -e "install.packages('tidyr')"
           Rscript -e "install.packages('lubridate')"   
          
-      - name: Run Script
+      - name: Run R Script
         env:
-          MY_API_KEY: ${{ secrets.API_KEY }}       # Access API Key as an environment variable
-          SERVICE_ACCOUNT: ${{ secrets.EMAIL_SAG }} # Access service account
-        
-        run: |
-          Rscript email_test_script.R
+          EMAIL_CREDENTIALS_PATH: ${{ secrets.EMAIL_CREDENTIALS_PATH }} 
+        run: Rscript email_test_script.R
+  
