@@ -29,6 +29,11 @@ jobs:
           create_credentials_file: 'true'
           workload_identity_provider: '${{ secrets.PROVIDER_GCLOUD }}'
           service_account: '${{ secrets.EMAIL_SAG }}'
+      
+      - name: Verificar arquivo de credenciais
+        run: |
+          echo "Caminho do arquivo de credenciais: ${{ steps.auth.outputs.credentials_file_path }}"
+          ls -l ${{ steps.auth.outputs.credentials_file_path }}
     
       - name: Checkout repository
         uses: actions/checkout@v2
