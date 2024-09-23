@@ -14,8 +14,7 @@ if (!colSums(ultima_medicao) == 0) {
   smtp_send(my_email_object,
           from = "iotree-email-test@just-genius-337505.iam.gserviceaccount.com",
           to = "pedro.rufino.martins@gmail.com",
-          subject = paste0("Erro sensores ", Sys.Date()),
-          credentials = creds_file(email_creds))
+          subject = paste0("Erro sensores ", Sys.Date()))
 } else {
   print ("nenhum problema à relatar")
   }
