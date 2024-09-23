@@ -52,6 +52,6 @@ jobs:
          
       - name: Run R Script
         env:
-          EMAIL_CREDENTIALS_PATH: ${ credentials_file_path } 
+          EMAIL_CREDENTIALS_PATH:  ${{ steps.auth.outputs.credentials_file_path }}
         run: Rscript email_test_script.R
   
