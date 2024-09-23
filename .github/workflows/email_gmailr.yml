@@ -46,12 +46,12 @@ jobs:
       - name: Install R Dependencies
         run: | 
           Rscript -e "install.packages('rmarkdown')"
-          Rscript -e "install.packages('blastula')"
+          Rscript -e "install.packages('gmailr')"
           Rscript -e "install.packages('tidyr')"
           Rscript -e "install.packages('lubridate')"   
          
       - name: Run R Script
         env:
           EMAIL_CREDENTIALS_PATH:  ${{ steps.auth.outputs.credentials_file_path }}
-        run: Rscript email_test_script.R
+        run: Rscript email_test_gmailr.R
   
