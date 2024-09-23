@@ -17,5 +17,5 @@ if (!colSums(ultima_medicao) == 0) {
           subject = paste0("Erro sensores ", Sys.Date()),
           credentials = creds_file(email_creds))
 } else {
-  cat ("nenhum problema à relatar")
+  print ("nenhum problema à relatar")
   }
