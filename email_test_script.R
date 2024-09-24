@@ -12,7 +12,7 @@ if (!colSums(ultima_medicao) == 0) {
 
  email_creds <- Sys.getenv("EMAIL_CREDENTIALS_PATH")
  
- email_creds <- create_smtp_creds_file (email_creds)
+ email_creds <- create_smtp_creds_file (email_creds, user = '$ {{ EMAIL_SAG }}', provider = 'gmail')
  
   my_email_object <- render_email("email_test_obje.Rmd")
  
