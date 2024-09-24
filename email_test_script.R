@@ -14,7 +14,7 @@ if (!colSums(ultima_medicao) == 0) {
  
  email_creds <- create_smtp_creds_file (email_creds)
  
-  my_email_object = render_email("email_test_obje.Rmd")
+  my_email_object <- render_email("email_test_obje.Rmd")
  
   smtp_send(my_email_object,
           from = "iotree-email-test@just-genius-337505.iam.gserviceaccount.com",
