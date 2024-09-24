@@ -48,6 +48,7 @@ jobs:
           EMAIL_CREDENTIALS_PATH:  ${{ steps.auth.outputs.credentials_file_path }}
         run: |
           Rscript -e 'print (Sys.getenv("EMAIL_CREDENTIALS_PATH"))'
+          Rscript -e 'print (Sys.getenv("EMAIL_CREDENTIALS_PATH"))'
           Rscript -e 'class (Sys.getenv("EMAIL_CREDENTIALS_PATH"))'
         
   
