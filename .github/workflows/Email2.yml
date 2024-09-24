@@ -51,7 +51,7 @@ jobs:
         env:
           EMAIL_CREDENTIALS_PATH:  ${{ steps.auth.outputs.credentials_file_path }}
         run: |          
-          Rscript -e 'if (!file.exist(Sys.getenv("EMAIL_CREDENTIALS_PATH"))){print("sem file")}'
+          Rscript -e 'if (!file.exists(Sys.getenv("EMAIL_CREDENTIALS_PATH"))){print("sem file")}'
           Rscript -e 'class (Sys.getenv("EMAIL_CREDENTIALS_PATH"))'
         
   
