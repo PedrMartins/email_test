@@ -21,15 +21,7 @@ jobs:
   run-r-script:
     runs-on: ubuntu-latest
     steps:  
-      
-      - name: Authenticate to Google Cloud
-        id: auth
-        uses: google-github-actions/auth@v1
-        with:
-          create_credentials_file: 'true'
-          workload_identity_provider: '${{ secrets.PROVIDER_GCLOUD }}'
-          service_account: '${{ secrets.EMAIL_SAG }}'
-    
+                
       - name: Checkout repository
         uses: actions/checkout@v2
       
@@ -42,16 +34,20 @@ jobs:
         run: |
           sudo apt-get install pandoc -y
           echo "RSTUDIO_PANDOC=$(which pandoc)" >> $GITHUB_ENV 
-              
+          
+      - name: Add OAuth Credentials
+        env:
+          CLIENT_SECRET_JSON: ${{ secrets.CLIENT_SECRET_JSON }}
+        run: |
+          echo "$CLIENT_SECRET_JSON" > client_secret.json
+          
       - name: Install R Dependencies
         run: | 
           Rscript -e "install.packages('rmarkdown')"
-          Rscript -e "install.packages('blastula')"
+          Rscript -e "install.packages('gmailr')"
           Rscript -e "install.packages('tidyr')"
           Rscript -e "install.packages('lubridate')"   
          
       - name: Run R Script
-        env:
-          EMAIL_CREDENTIALS_PATH:  ${{ steps.auth.outputs.credentials_file_path }}
         run: Rscript email_test_script.R
   
