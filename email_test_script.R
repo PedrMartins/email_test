@@ -15,7 +15,7 @@ if (!colSums(ultima_medicao) == 0) {
  gm_auth_configure(path = 'client_secret.json')
  gm_auth(
   scopes = "https://www.googleapis.com/auth/gmail.send",
-  email = TRUE
+  email = "pedro.rufino.martins@gmail.com"
 )
 
 
