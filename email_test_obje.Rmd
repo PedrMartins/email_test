@@ -1,4 +1,46 @@
 ---
+title: "Falha no(s) senso(res)"
+output: 
+  html_document: 
+    self_contained: no
+    theme: null
+    highlight: null
+    mathjax: null
+    css: ink.css
+
+---
+
+
+```{r echo=FALSE, message=FALSE}
+
+library(knitr)
+library(lubridate)
+library(dplyr)
+source("import_and_processing_data.R")
+status <-  data.frame()
+
+for (pipae in pipaes) {
+
+      sensor=pipae_all [pipae_all$sensor==pipae,]
+      diff <- time_length(Sys.Date()-
+                            sensor$Data [length(sensor$Data)],
+                          unit="day")
+
+      if (!diff == 0) {
+        
+        test <- data.frame(sensor=as.character (pipae),
+                           dias=sensor$Data [length(sensor$Data)],
+                           parcela=unique (sensor$parcela),
+                           status="No")
+      }
+      status <-  rbind(test,status)
+    }
+    names (status) <- c("Sensor","Último envio","Parcela","Funcionando bem")
+    knitr::kable (status, "pipe", align = "llll", 
+                  caption = "Sensores que apresentam problemas")
+
+```
+---
 title: "Falha dos sensores"
 
 ---
