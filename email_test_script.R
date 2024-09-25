@@ -13,7 +13,7 @@ if (!colSums(ultima_medicao) == 0) {
 
  
  gm_auth_configure(path = 'client_secret.json')
- gm_auth(email = TRUE)
+ #gm_auth(email = TRUE)
 
 
  my_email_object <- render("email_test_obje.Rmd")
