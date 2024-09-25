@@ -12,7 +12,7 @@ source("import_and_processing_data.R")
 if (!colSums(ultima_medicao) == 0) {
 
  
- gm_auth_configure(path = '~/Desktop/R_analises/email_test/client_secret_423179119965-m2akvbjrp44p2j2qh74cc0b6eietjcf6.apps.googleusercontent.com.json')
+ gm_auth_configure(path = 'client_secret.json')
  gm_auth(email = TRUE)
 
 
@@ -29,7 +29,3 @@ if (!colSums(ultima_medicao) == 0) {
 } else {
   print ("nenhum problema à relatar")
 }
-
-
-
- 
