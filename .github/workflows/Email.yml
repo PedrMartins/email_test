@@ -42,8 +42,7 @@ jobs:
       
       - name: Run R Script with SMTP Credentials
         env:
-          SMTP_USER: ${{ secrets.SMTP_USER }}  
-          SMTP_PASS: ${{ secrets.SMTP_PASS }} 
+          SMTP_CREDS: ${{ secrets.SMTP_CREDS }}    
         run: Rscript email_test_script.R
        
   
