@@ -13,10 +13,6 @@ on:
   #schedule:
   # - cron: '0 13 * * 1-5'
 
-permissions:
-  id-token: write
-  contents: read
-  
 jobs:
   run-r-script:
     runs-on: ubuntu-latest
@@ -35,16 +31,11 @@ jobs:
           sudo apt-get install pandoc -y
           echo "RSTUDIO_PANDOC=$(which pandoc)" >> $GITHUB_ENV 
           
-      - name: Add OAuth Credentials
-        env:
-          CLIENT_SECRET_JSON: ${{ secrets.CLIENT_SECRET_JSON }}
-        run: |
-          echo "$CLIENT_SECRET_JSON" > client_secret.json
-          
+                
       - name: Install R Dependencies
         run: | 
           Rscript -e "install.packages('rmarkdown')"
-          Rscript -e "install.packages('gmailr')"
+          Rscript -e "install.packages('blastula')"
           Rscript -e "install.packages('tidyr')"
           Rscript -e "install.packages('lubridate')"   
          
