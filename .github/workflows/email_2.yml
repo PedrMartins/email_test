@@ -43,7 +43,7 @@ jobs:
       - name: Run R Script with SMTP Credentials
         env:
           SMTP_CREDS: ${{ secrets.SMTP_CREDS }}    
-        run: Rscript -e 'print (Sys.getenv(SMTP_CREDS))'
+        run: Rscript -e 'print (Sys.getenv("SMTP_CREDS"))'
 
        
   
