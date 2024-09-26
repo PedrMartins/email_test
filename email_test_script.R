@@ -1,31 +1,28 @@
-install.packages("gmailr")
+library(blastula)
 library(rmarkdown)
-library(gmailr)
+
+
+create_smtp_creds_file("iot_creds",
+                       user="gthub_iot@outlook.com",
+                       provider = "outlook")
+
 
 source("import_and_processing_data.R")
 
-# Fetch the email credentials path from environment variable
-
- gm_auth_configure(path = 'client_secret.json')
- gm_auth(
-  scopes = "https://www.googleapis.com/auth/gmail.send",
-  email = "pedro.rufino.martins@gmail.com"
-)
-
-
-
 if (!colSums(ultima_medicao) == 0) {
 
- my_email_object <- render("email_test_obje.Rmd")
- 
- email <- gm_mime() %>%
- gm_to('pedro.rufino.martins@gmail.com') %>%
- gm_from('pedro.rufino.martins@gmail.com') %>%
- gm_subject(paste0("Erro sensores ", Sys.Date())) %>%
- gm_text_body(my_email_object)
+  
+  objct <- render_email("email_test_obje.Rmd")
 
- gm_send_message(email)
- 
+  getwd ()
+
+  smtp_send(objct,
+            from = "gthub_iot@outlook.com",
+            to = "pedro.rufino.martins@gmail.com",
+            subject = paste0("Erro sensores ", Sys.Date()),
+            credentials = creds_file("iot_creds"))
 } else {
-  print ("nenhum problema à relatar")
+  cat ("nenhum problema à relatar")
 }
+
+
