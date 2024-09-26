@@ -26,10 +26,8 @@ jobs:
         with: 
           use-public-rspm: true
           
-      - name: Install Pandoc
-        run: |
-          sudo apt-get install pandoc -y
-          echo "RSTUDIO_PANDOC=$(which pandoc)" >> $GITHUB_ENV 
+      - name: Set up pandoc
+        uses: r-lib/actions/setup-pandoc@master
           
                 
       - name: Install R Dependencies
