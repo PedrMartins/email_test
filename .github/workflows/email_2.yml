@@ -1,0 +1,49 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+#
+# See https://github.com/r-lib/actions/tree/master/examples#readme for
+# additional example workflows available for the R community.
+
+name: Email_test 
+
+on:
+  workflow_dispatch:
+  #schedule:
+  # - cron: '0 13 * * 1-5'
+
+jobs:
+  run-r-script:
+    runs-on: ubuntu-latest
+    steps:  
+                
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with: 
+          use-public-rspm: true
+          
+      - name: Install Pandoc
+        run: |
+          sudo apt-get install pandoc -y
+          echo "RSTUDIO_PANDOC=$(which pandoc)" >> $GITHUB_ENV
+          
+                
+      - name: Install R Dependencies
+        run: | 
+          Rscript -e "install.packages('rmarkdown')"
+          Rscript -e "install.packages('blastula')"
+          Rscript -e "install.packages('tidyr')"
+          Rscript -e "install.packages('lubridate')"   
+         
+      
+      - name: Run R Script with SMTP Credentials
+        env:
+          SMTP_CREDS: ${{ secrets.SMTP_CREDS }}    
+        run: Rscript -e 'print (Sy.get(SMTP_CREDS))'
+
+       
+  
