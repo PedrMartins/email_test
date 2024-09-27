@@ -38,11 +38,14 @@ jobs:
           Rscript -e "install.packages('blastula')"
           Rscript -e "install.packages('tidyr')"
           Rscript -e "install.packages('lubridate')"   
-         
-      
-      - name: Run R Script with SMTP Credentials
+          
+      - name: Decode SMTP Credentials
         env:
-          SMTP_PASS: ${{ secrets.SMTP_PASS }}    
+          SMTP_CREDS_BASE64: ${{ secrets.SMTP_CREDS }}  # Get the Base64 string from GitHub Secrets
+        run: |
+          echo "$SMTP_CREDS" | base64 --decode > iot_creds  # Decode and save to file    
+      
+      - name: Run R Script with SMTP Credentials 
         run: Rscript email_test_script.R
        
   
