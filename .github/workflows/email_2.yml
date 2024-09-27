@@ -47,7 +47,7 @@ jobs:
           echo "$SMTP_CREDS" | base64 --decode > iot_creds  # Decode and save to file
           
       - name: run R
-        run: Rscript -e 'print (creds_file("iot_creds"))'
+        run: Rscript -e 'library(bastula); print (creds_file("iot_creds"))'
 
        
   
