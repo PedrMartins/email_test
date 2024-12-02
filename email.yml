@@ -1,0 +1,40 @@
+# additional example workflows available for the R community.
+
+name: Email 
+
+on:
+  workflow_dispatch:                 #dispara o workflow com um trigger > actions
+  schedule:                          #'agenda quando será ativado'
+   - cron: '0 13 15,30 * *'          #https://crontab.guru/#
+
+jobs:                                 #aqui define a atividade
+  run-r-script: 
+    runs-on: ubuntu-latest            #runs-on define o OS que rodará >em geral usa-se ubunto, mas podem usar windows e mac <
+    steps:                            #aqui irá definir os próximos passos após a instalação do os
+                
+      - name: Checkout repository     #checagem do repositório
+        uses: actions/checkout@v2
+      
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2 #instala o R
+        with: 
+          use-public-rspm: true
+          
+      - name: Install Pandoc          #Instala o pandoc, necessário para utilizar o Rmarkdown
+        run: |
+          sudo apt-get install pandoc -y
+          echo "RSTUDIO_PANDOC=$(which pandoc)" >> $GITHUB_ENV
+          
+                
+      - name: Install R Dependencies  #Instala pacotes R
+        run: | 
+          Rscript -e "install.packages('rmarkdown')"
+          Rscript -e "install.packages('blastula')"
+          Rscript -e "install.packages('tidyr')"
+          Rscript -e "install.packages('knitr')"
+          Rscript -e "install.packages('lubridate')"
+          
+      - name: Run R Script with SMTP Credentials #roda o script
+        run: Rscript email_iot_script.R 
+       
+  
