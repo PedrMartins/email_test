@@ -8,7 +8,7 @@ source("import_and_processing_data.R")
 if (!colSums(ultima_medicao) == 0) {
 
 
-recip <- c("pedro.rufino.martins@gmail.com", "gthub_iot@outlook.com")
+recip <- c("gthub_iot@outlook.com")
   objct <- render_email("email_objet_iot.Rmd")
   
 
